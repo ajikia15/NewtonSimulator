@@ -8,7 +8,7 @@ public:
 		y = x = oldx = oldy = points = 0;
 		icon = '*';
 	}
-	Drawable(int x, int y, chtype ch)
+	Drawable(int y, int x, chtype ch)
 	{
 		this->x = x;
 		this->y = y;
@@ -27,7 +27,19 @@ public:
 	{
 		return icon;
 	}
-
+    void updatePreviousY(int y)
+    {
+        oldy = y;
+    }
+    int getPreviousY()
+    {
+        return oldy;
+    }
+    void moveD()
+    {
+        updatePreviousY(y);
+        y++;
+    }
 protected:
 	int y, x, oldx, oldy, points;
 	chtype icon;

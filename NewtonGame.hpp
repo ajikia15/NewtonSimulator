@@ -42,7 +42,7 @@ public:
                 break;
             }
     }
-    void updateState(auto startTime)
+    void updateState(int startTime)
     {
         handheld.displayTime(startTime);
         int y, x;
@@ -55,23 +55,27 @@ public:
             handheld.add(Empty(handheld.getMaxY() - 1, player->getPreviousX()));
             handheld.add(*player);
         }
-        if (startTime % 1000 == 0)
+
+        if (!getAppleState())
         {
-            if (!getAppleState())
+            handheld.displayPoints(player->getPoints());
+            int y, x;
+            x = handheld.getCoordinates();
+            y = 0;
+            appleAdd(y, x);            
+        }
+
+        if (getAppleState())
+        {
+
+            if (startTime % 200 == 0)
             {
-                handheld.displayPoints(player->getPoints());
-                int y, x;
-                x = handheld.getCoordinates();
-                y = 0;
-                appleAdd(y, x);
-            }
-            if (getAppleState())
-            {
+
                 // !!! if its time for the apple to fall
 
                 if (apple->getY() < handheld.getMaxY() - 1)
                 {
-                    apple->moveD(handheld.getMaxY() - 1, player->getY(), player->getX());
+                    apple->moveD();
                     handheld.add(Empty(apple->getPreviousY(), apple->getX()));
                     handheld.colorToggle("red", 1);
                     handheld.add(*apple);
@@ -85,12 +89,6 @@ public:
                         player->plusPoints();
                     appleDel();
                 }
-
-                /*
-                TODO
-                1) Display a timer
-                2) apple falling depends on the timer
-                */
             }
         }
     }
@@ -107,10 +105,7 @@ public:
     {
         pAdded = false;
     }
-    bool getAppleState()
-    {
-        return appleOnScreen;
-    }
+    
     int getState()
     {
         return handheld.getState();
@@ -123,9 +118,12 @@ public:
     {
         handheld.gameEnter();
     }
+    bool getAppleState()
+    {
+        return appleOnScreen;
+    }
     void appleAdd(int y, int x)
     {
-
         apple = new Apple(y, x);
         appleOnScreen = true;
     }
@@ -155,7 +153,6 @@ public:
     {
         handheld.exitFull();
     }
-
 private:
     Handheld handheld;
     bool game_over;

@@ -193,12 +193,12 @@ public:
     {
         mvwprintw(mwin, 1, mw / 2 - 5, "             ");
         mvwprintw(mwin, 1, mw / 2 - 5, "Score: %d", p);
+        // mvwprintw(mwin, 1, 10, "%d", p);
     }
-    void displayTime(double t)
+    void displayTime(int t)
     {
-        mvwprintw(mwin, 1, 2, "%f", t);
+        mvwprintw(mwin, 1, 2, "%d", t);
     }
-
 private:
     WINDOW *mwin, *gwin;
     int mh, mw, yGm, xGm, game_state, ch; // screen dimensions

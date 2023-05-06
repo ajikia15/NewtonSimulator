@@ -1,21 +1,23 @@
 #include <ncurses.h>
-#include <ctime>
 #include <chrono>
+#include <unistd.h>
+#include <iostream>
 #include "NewtonGame.hpp"
 #include "Handheld.hpp"
 #include "Drawable.hpp"
 #include "Apple.hpp"
 #include "Handheld.hpp"
-
 int main()
 {
     bool exit = false;
     initscr();
     NewtonGame game;
+    std::string name;
     game.drawG();
     std::chrono::steady_clock::time_point start_time;
     while (!exit)
     {
+        std::cin >> name;
         chtype inp = getch();
         switch (inp)
         {
@@ -31,8 +33,6 @@ int main()
         if (game.getState() == 1)
         {
             start_time = std::chrono::steady_clock::now();
-            // timer starts here
-
             do
             {
                 auto current_time = std::chrono::steady_clock::now();
@@ -40,8 +40,8 @@ int main()
 
                 game.processInput();
                 game.updateState(elapsed_time);
-
                 game.redraw();
+                usleep(800);
             } while (game.getState() == 1);
         }
         while (game.getState() == 2)
