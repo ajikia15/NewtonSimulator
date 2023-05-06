@@ -1,0 +1,3 @@
+aleks 50
+seqs 40
+gvanca 300
