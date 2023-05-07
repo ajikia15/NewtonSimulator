@@ -27,7 +27,7 @@ public:
 	{
 		return icon;
 	}
-    
+
 protected:
 	int y, x, oldx, oldy, points;
 	chtype icon;

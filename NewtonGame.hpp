@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <chrono>
 #include "Handheld.hpp"
-#include "Apple.hpp"
+#include "Projectile.hpp"
 #include "Drawable.hpp"
 #include "Empty.hpp"
 #include "Player.hpp"
@@ -15,11 +15,11 @@ public:
     {
         handheld = Handheld();
         handheld.start();
-        game_over = appleOnScreen = pAdded = false;
+        game_over = projectileOnScreen = pAdded = false;
     }
     ~NewtonGame()
     {
-        delete apple;
+        delete projectile;
         delete player;
     }
     void processInput()
@@ -58,36 +58,43 @@ public:
             handheld.add(*player);
         }
 
-        if (!getAppleState())
+        if (!getProjectileState())
         {
             handheld.displayPoints(player->getPoints());
             handheld.displayHealth(player->getLives());
             int y, x;
             x = handheld.getCoordinates();
             y = 0;
-            appleAdd(y, x);
+            projectileAdd(y, x);
         }
 
-        if (getAppleState())
+        if (getProjectileState())
         {
 
             if (startTime % (INTERVAL - player->getPoints()) == 0) // speed of the game
             {
-                if (apple->getY() < handheld.getMaxY() - 1)
+                if (projectile->getY() < handheld.getMaxY() - 1)
                 {
-                    apple->moveD();
-                    handheld.add(Empty(apple->getPreviousY(), apple->getX()));
+                    projectile->moveD();
+                    handheld.add(Empty(projectile->getPreviousY(), projectile->getX()));
                     handheld.colorToggle("red", 1);
-                    handheld.add(*apple);
+                    handheld.add(*projectile);
                     handheld.colorToggle("red", 0);
                 }
                 else
                 {
-                    if (apple->getX() != player->getX())
+                    if (projectile->getX() != player->getX())
+                    {
                         player->deductPoints();
+                        player->deductLives();
+                        if (player->getLives() == 0)
+                        {
+                            handheld.setState(2);
+                        }
+                    }
                     else
                         player->plusPoints();
-                    appleDel();
+                    projectileDel();
                 }
             }
         }
@@ -118,20 +125,20 @@ public:
     {
         handheld.gameEnter();
     }
-    bool getAppleState()
+    bool getProjectileState()
     {
-        return appleOnScreen;
+        return projectileOnScreen;
     }
-    void appleAdd(int y, int x)
+    void projectileAdd(int y, int x)
     {
-        apple = new Apple(y, x);
-        appleOnScreen = true;
+        projectile = new Projectile(y, x);
+        projectileOnScreen = true;
     }
-    void appleDel()
+    void projectileDel()
     {
-        handheld.add(Empty(apple->getY(), apple->getX()));
-        appleOnScreen = false;
-        delete apple;
+        handheld.add(Empty(projectile->getY(), projectile->getX()));
+        projectileOnScreen = false;
+        delete projectile;
     }
     void redraw()
     {
@@ -149,12 +156,16 @@ public:
     {
         handheld.exitFull();
     }
+    void gameOverScreen()
+    {
+        handheld.gameOverScreen();
+    }
 
 private:
     Handheld handheld;
     bool game_over;
     bool pAdded;
-    bool appleOnScreen;
-    Apple *apple;
+    bool projectileOnScreen;
+    Projectile *projectile;
     Player *player;
 };

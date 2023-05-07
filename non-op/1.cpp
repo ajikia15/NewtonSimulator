@@ -15,7 +15,7 @@ void drawScreen()
     init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
     init_pair(4, COLOR_RED, COLOR_BLACK);
 }
-void drawApple(WINDOW *w, int y)
+void drawProjectile(WINDOW *w, int y)
 {
     wattron(w, COLOR_PAIR(4));
     mvwprintw(w, y - 8, 1, "          .:");
@@ -145,7 +145,7 @@ int main()
         keypad(gwin, true);
         wattron(gwin, A_BOLD);
         mvwprintw(gwin, yGm / 2 - 4, xGm / 2 - 7, "Apple Catcher");
-        drawApple(gwin, yGm);
+        drawProjectile(gwin, yGm);
         wattroff(gwin, A_BOLD);
         hOpt1(gwin, &opt_hlt, yGm, xGm);
         while (!selected_option)

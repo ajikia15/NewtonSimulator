@@ -6,7 +6,7 @@
 #include "NewtonGame.hpp"
 #include "Handheld.hpp"
 #include "Drawable.hpp"
-#include "Apple.hpp"
+#include "Projectile.hpp"
 #include "Handheld.hpp"
 bool isValidUsername(const std::string &name)
 {
@@ -73,7 +73,6 @@ int main()
     std::chrono::steady_clock::time_point start_time;
     while (!exit)
     {
-
         chtype inp = getch();
         switch (inp)
         {
@@ -102,7 +101,8 @@ int main()
         }
         while (game.getState() == 2)
         {
-            // game.gameOverScreen();
+            game.redraw();
+            game.gameOverScreen();
         }
         game.drawG();
     }

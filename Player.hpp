@@ -41,7 +41,7 @@ public:
 	}
 	void plusLives()
 	{
-		lives--;
+		lives++;
 	}
 	void moveR()
 	{

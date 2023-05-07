@@ -97,7 +97,7 @@ public:
     {
         game_state = t;
     }
-    void drawApple()
+    void drawProjectile()
     {
         wattron(gwin, COLOR_PAIR(4));
         mvwprintw(gwin, yGm - 7, 0, "         /)");
@@ -115,12 +115,12 @@ public:
         mvwprintw(gwin, 2, xGm / 2 - 7, "Apple Catcher");
         wattroff(gwin, A_STANDOUT);
         mvwprintw(gwin, 4, xGm / 2 - 12, "Use arrow keys to move");
-        mvwprintw(gwin, 6, xGm / 2 - 8, "Collect apples");
+        mvwprintw(gwin, 6, xGm / 2 - 8, "Collect projectiles");
         mvwprintw(gwin, 7, xGm / 2 - 7, "Avoid rocks!");
         wattron(gwin, A_BLINK);
         mvwprintw(gwin, yGm - 3, xGm / 2 - 3, "Press Enter to Start");
         wattroff(gwin, A_BLINK);
-        drawApple();
+        drawProjectile();
 
         wrefresh(mwin);
         wrefresh(gwin);
@@ -192,7 +192,6 @@ public:
     {
         mvwprintw(mwin, 1, mw / 2 - 5, "             ");
         mvwprintw(mwin, 1, mw / 2 - 5, "Score: %d", p);
-        // mvwprintw(mwin, 1, 10, "%d", p);
     }
     void displayTime(int t)
     {
@@ -201,23 +200,26 @@ public:
     void displayHealth(int lives)
     {
         int heartlen = 8;
+        for (int j = mh - 8; j <= mh - 5; j++)
+            for (int z = 1; z <= mw - 2; z++)
+                mvwprintw(mwin, j, z, " ");
         wattron(mwin, COLOR_PAIR(5));
         for (int j = 0; j < lives; j++)
         {
-            mvwprintw(mwin, mh - 8, heartlen * j + 4, "  ");
-            mvwprintw(mwin, mh - 8, heartlen * j + 7, "  ");
-            mvwprintw(mwin, mh - 7, heartlen * j + 3, "       ");
-            mvwprintw(mwin, mh - 6, heartlen * j + 4, "     ");
-            mvwprintw(mwin, mh - 5, heartlen * j + 5, "   ");
+            mvwprintw(mwin, mh - 8, heartlen * j + 5, "  ");
+            mvwprintw(mwin, mh - 8, heartlen * j + 8, "  ");
+            mvwprintw(mwin, mh - 7, heartlen * j + 4, "       ");
+            mvwprintw(mwin, mh - 6, heartlen * j + 5, "     ");
+            mvwprintw(mwin, mh - 5, heartlen * j + 6, "   ");
         }
         wattroff(mwin, COLOR_PAIR(5));
     }
 
-    /*
-     /\/\
-     \  /
-      \/
-    */
+    void gameOverScreen()
+    {
+        mvwprintw(gwin, 2, 2, "you lost");
+    }
+
 private:
     WINDOW *mwin, *gwin;
     int mh, mw, yGm, xGm, game_state, ch; // screen dimensions

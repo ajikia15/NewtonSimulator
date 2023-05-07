@@ -1,11 +1,11 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 #include <ncurses.h>
-class Apple
+class Projectile
 {
 public:
-    Apple(WINDOW *gwin, int yGm, int xGm);
-    void startApple();
+    Projectile(WINDOW *gwin, int yGm, int xGm);
+    void startProjectile();
     void fall();
     void collide();
 
@@ -13,7 +13,7 @@ private:
     int yGm, xGm, c, y, x;
     WINDOW *gwin;
 };
-Apple::Apple(WINDOW *gwin, int yGm, int xGm)
+Projectile::Projectile(WINDOW *gwin, int yGm, int xGm)
 {
     this->gwin = gwin;
     this->yGm = yGm;
