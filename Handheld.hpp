@@ -3,6 +3,7 @@
 #include <fstream>
 #include "Drawable.hpp"
 #include <iostream>
+
 class Handheld
 {
 private:
@@ -108,7 +109,7 @@ public:
     {
         game_state = t;
     }
-    void drawProjectile()
+    void drawApple()
     {
         wattron(gwin, COLOR_PAIR(4));
         mvwprintw(gwin, yGm - 7, 0, "         /)");
@@ -131,7 +132,7 @@ public:
         wattron(gwin, A_BLINK);
         mvwprintw(gwin, yGm - 3, xGm / 2 - 3, "Press Enter to Start");
         wattroff(gwin, A_BLINK);
-        drawProjectile();
+        drawApple();
 
         wrefresh(mwin);
         wrefresh(gwin);
@@ -213,7 +214,7 @@ public:
     }
     void displayPoints()
     {
-        mvwprintw(mwin, 1, mw - 11, "          ");
+        clearStatusBar();
         if (getPoints() < 0)
         {
             wattron(mwin, COLOR_PAIR(6));
@@ -235,12 +236,13 @@ public:
     }
     void displayTime(int t)
     {
+        clearStatusBar();
         mvwprintw(mwin, 1, 2, "%d", t);
     }
     void displayHealth(int lives)
     {
-        for (int j = 0; j < 5; j++)
-            mvwprintw(mwin, 1, 11 + j, " ");
+        // for (int j = 0; j < 5; j++)
+        //     mvwprintw(mwin, 1, 11 + j, " ");
         wattron(mwin, COLOR_PAIR(5));
         mvwprintw(mwin, 1, 4, "Lives:");
         for (int j = 0; j < lives; j++)
@@ -262,6 +264,11 @@ public:
             file.close();
         }
     }
+    void clearStatusBar()
+    {
+        for (int i = 1; i < mw - 1; i++)
+            mvwprintw(mwin, 1, i, " ");
+    }
     void gameOverScreen()
     {
         wclear(gwin);
@@ -274,5 +281,10 @@ public:
 
         mvwprintw(gwin, 3, 2, "Top Player Ranking:");
         showScoreBoard();
+        setState(0);
+    }
+    void Gameguide()
+    {
+        mvwprintw(gwin, 2, 2, "cry nigga");
     }
 };

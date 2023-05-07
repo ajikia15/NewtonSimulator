@@ -108,6 +108,7 @@ public:
                         player->deductLives();
                         if (player->getLives() == 0)
                         {
+                            handheld.clearStatusBar();
                             handheld.setState(2);
                         }
                     }
@@ -178,6 +179,7 @@ public:
     void gameOverScreen()
     {
         handheld.gameOverScreen();
+        handheld.redraw();
     }
     void clearGameScreen()
     {

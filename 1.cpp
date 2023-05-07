@@ -71,9 +71,14 @@ bool isValidUsername(const std::string &name)
     }
     return true;
 }
-void startScore()
+void initScoreBoard(std::string n, int s)
 {
+    Score newScore;
+    newScore.name = n;
+    newScore.score = s;
+    updateScoreboard(newScore);
 }
+
 int main()
 {
     std::string name = getUsernameFromUser();
@@ -103,7 +108,6 @@ int main()
             {
                 auto current_time = std::chrono::steady_clock::now();
                 auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>((current_time - start_time)).count();
-
                 game.processInput();
                 game.updateState(elapsed_time);
                 game.redraw();
@@ -112,15 +116,10 @@ int main()
         }
         while (game.getState() == GAMEOVER)
         {
-            Score newScore;
-            newScore.name = game.getName();
-            newScore.score = game.getScore();
-            updateScoreboard(newScore);
+            initScoreBoard(game.getName(), game.getScore());
             game.gameOverScreen();
-            game.redraw();
-            napms(5000);
             exit = true;
-            game.setState(0);
+            napms(5000);
         }
         if (game.getState() != 0)
             game.drawG();
