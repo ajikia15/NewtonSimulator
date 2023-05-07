@@ -12,9 +12,9 @@
 #include "Scores.hpp"
 
 #define UNDEFINED 0
-#define INGAME 1
-#define GAMEOVER 2
-#define GUIDE 3
+#define INGAME game.getState() == 1
+#define GAMEOVER game.getState() == 2
+#define GUIDE game.getState() == 3
 
 std::string getUsernameFromUser()
 {
@@ -98,10 +98,12 @@ int main()
         case 10:
             game.gameEnter();
             break;
+        case 'q':
+            game.setState(3);
         default:
             break;
         }
-        if (game.getState() == INGAME)
+        if (INGAME)
         {
             start_time = std::chrono::steady_clock::now();
             do
@@ -112,14 +114,24 @@ int main()
                 game.updateState(elapsed_time);
                 game.redraw();
                 usleep(800);
-            } while (game.getState() == INGAME);
+            } while (INGAME);
         }
-        while (game.getState() == GAMEOVER)
+        while (GAMEOVER)
         {
             initScoreBoard(game.getName(), game.getScore());
             game.gameOverScreen();
             exit = true;
             napms(5000);
+        }
+        while (GUIDE)
+        {
+
+            game.gameGuideScreen();
+            if (chtype c = getch())
+            {
+                game.clearGameScreen();
+                break;
+            }
         }
         if (game.getState() != 0)
             game.drawG();

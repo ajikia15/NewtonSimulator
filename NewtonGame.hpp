@@ -181,6 +181,12 @@ public:
         handheld.gameOverScreen();
         handheld.redraw();
     }
+    void gameGuideScreen()
+    {
+        handheld.clear();
+        handheld.gameGuide();
+        handheld.redraw();
+    }
     void clearGameScreen()
     {
         handheld.clear();

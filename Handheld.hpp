@@ -93,12 +93,12 @@ public:
     {
         beep();
         wclear(gwin);
-        game_state = 1;
+        setState(1);
     }
     void inMainMenu()
     {
         wclear(gwin);
-        game_state = 0;
+        setState(0);
     }
     void clear()
     {
@@ -275,7 +275,7 @@ public:
         wattron(gwin, A_BLINK);
         mvwprintw(gwin, 1, 2, "GAME OVER!");
         wattroff(gwin, A_BLINK);
-        mvwprintw(gwin, 1, xGm - 16, "Your score: %d", getPoints());
+        mvwprintw(gwin, 1, xGm - 16, "Your score: %d", getPoints() + 1);
         for (int i = 1; i < xGm - 1; i++)
             mvwprintw(gwin, 2, i, "-");
 
@@ -283,8 +283,19 @@ public:
         showScoreBoard();
         setState(0);
     }
-    void Gameguide()
+    void gameGuide()
     {
-        mvwprintw(gwin, 2, 2, "cry nigga");
+        mvwprintw(gwin, 1, 2, "Welcome to Newton Simulator!");
+        mvwprintw(gwin, 3, 2, "- Use < or S keys to move left.");
+        mvwprintw(gwin, 4, 2, "- Use > or A keys to move right.");
+        mvwprintw(gwin, 5, 2, "- Use 'x' to quit like a coward.");
+        mvwprintw(gwin, 6, 2, "Catch Apples! Indicated as 'O'");
+        mvwprintw(gwin, 7, 2, "Avoid Rocks! Indicated as '*'");
+        mvwprintw(gwin, 8, 2, "Catch Health Aids! Indicated as '+'");
+        mvwprintw(gwin, 9, 2, "You have 5 lives");
+        mvwprintw(gwin, 11, 2, "Good Luck!");
+        wattron(gwin, A_BLINK);
+        mvwprintw(gwin, 13, 2, "Press Enter to continue...");
+        wattroff(gwin, A_BLINK);
     }
 };

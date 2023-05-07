@@ -3,8 +3,4 @@ seqs 40
 gvanca 300
 qalebsa 1
 seqsebsa -5
-dddd -5
-deicide -4
-balls -4
-d -2
-griz -5
+
