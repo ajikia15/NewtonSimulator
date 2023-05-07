@@ -33,11 +33,14 @@ public:
                 handheld.inMainMenu();
                 break;
             case 'a':
-                player->moveL();
+                if (player->getX() != 0)
+                    player->moveL();
                 handheld.cMoveLeft();
                 break;
             case 'd':
-                player->moveR(); // !
+                if (player->getX() != handheld.getMaxX() - 1)
+
+                    player->moveR();
                 handheld.cMoveRight();
                 break;
             default:
@@ -159,6 +162,10 @@ public:
     void gameOverScreen()
     {
         handheld.gameOverScreen();
+    }
+    void clearGameScreen()
+    {
+        handheld.clear();
     }
 
 private:

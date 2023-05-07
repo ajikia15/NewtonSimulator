@@ -80,7 +80,7 @@ public:
     }
     int getCoordinates()
     {
-        return rand() % xGm;
+        return (rand() % (xGm + 1) - 1);
     }
     void gameEnter()
     {
@@ -92,6 +92,11 @@ public:
     {
         wclear(gwin);
         game_state = 0;
+    }
+    void clear()
+    {
+        wclear(gwin);
+        wrefresh(gwin);
     }
     void setState(int t)
     {
@@ -137,6 +142,10 @@ public:
     int getMaxY()
     {
         return yGm;
+    }
+    int getMaxX()
+    {
+        return xGm;
     }
     void drawOutline()
     {

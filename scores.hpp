@@ -1,10 +1,20 @@
+// void showScoreboard(WINDOW *gwin)
+// {
+//     std::ifstream file("scoreboard.txt");
+//     if (file.is_open())
+//     {
+//         int i = 0;
+//         std::string line;
+//         while (std::getline(file, line))
+//         {
+//             i++;
+//             mvwprintw(gwin, i + 4, 2, "%d) %s", i, line.c_str());
+//         }
+//         // cout << i++ << " " << line << endl;
+//         file.close();
+//     }
+// }
 
-/*
-I'm trying to make a scoreboard system for my game which im writing in ncurses
-cpp. For now I just want the program to prompt me to input the username and the
-score, then the program will look it up in a seperate file, if its already there, compare the scores and update the previous record with the higher score.
-if its not there, just add it to the list.
-*/
 #include <iostream>
 #include <fstream>
 

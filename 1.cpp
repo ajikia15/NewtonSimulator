@@ -3,11 +3,17 @@
 #include <unistd.h>
 #include <iostream>
 #include <cctype>
+#include <fstream>
 #include "NewtonGame.hpp"
 #include "Handheld.hpp"
 #include "Drawable.hpp"
 #include "Projectile.hpp"
 #include "Handheld.hpp"
+#include "Scores.hpp"
+#define UNDEFINED 0
+#define INGAME 1
+#define GAMEOVER 2
+#define GUIDE 3
 bool isValidUsername(const std::string &name)
 {
     for (char c : name)
@@ -101,13 +107,19 @@ int main()
         }
         while (game.getState() == 2)
         {
-            game.redraw();
+            game.clearGameScreen();
             game.gameOverScreen();
+            game.redraw();
+            napms(400);
+            game.clearGameScreen();
+            exit = true;
+            game.setState(0);
         }
-        game.drawG();
+        if (game.getState() != 0)
+            game.drawG();
     }
+    game.exit();
     getch();
-    endwin();
 
     return 0;
 }
