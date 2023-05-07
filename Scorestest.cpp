@@ -79,13 +79,9 @@ bool updateScoreboard(Score newScore)
 int main()
 {
     Score newScore;
-    cout << "Enter name: ";
-    cin >> newScore.name;
-    cout << "Enter score: ";
-    cin >> newScore.score;
+    newScore.name = game.getName();
+    newScore.score = game.getScore();
 
-    if (!updateScoreboard(newScore))
-        cout << "Error updating scoreboard" << endl;
-
+    updateScoreboard(newScore);
     return 0;
 }

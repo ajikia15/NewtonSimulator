@@ -9,7 +9,7 @@
 #include "Drawable.hpp"
 #include "Projectile.hpp"
 #include "Handheld.hpp"
-// #include "Scores.hpp"
+#include "Scores.hpp"
 
 #define UNDEFINED 0
 #define INGAME 1
@@ -71,6 +71,9 @@ std::string getUsernameFromUser()
 
     return name;
 }
+void startScore()
+{
+}
 int main()
 {
     std::string name = getUsernameFromUser();
@@ -112,6 +115,10 @@ int main()
             game.clearGameScreen();
             game.gameOverScreen();
             game.redraw();
+            Score newScore;
+            newScore.name = game.getName();
+            newScore.score = game.getScore();
+            updateScoreboard(newScore);
             napms(400);
             game.clearGameScreen();
             exit = true;

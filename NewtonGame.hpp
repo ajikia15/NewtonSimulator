@@ -9,12 +9,13 @@
 #include "Empty.hpp"
 #include "Player.hpp"
 #define INTERVAL 150
+#define DEBUG 0
 class NewtonGame
 {
 public:
     NewtonGame(const std::string &name)
     {
-        pName = pName;
+        pName = name;
         handheld = Handheld();
         handheld.start();
         game_over = projectileOnScreen = pAdded = false;
@@ -51,7 +52,8 @@ public:
     }
     void updateState(int startTime)
     {
-        // handheld.displayTime(startTime);
+        if (DEBUG)
+            handheld.displayTime(startTime);
         int y, x;
         if (!getPlayerState())
         {
@@ -172,6 +174,10 @@ public:
     std::string getName()
     {
         return pName;
+    }
+    int getScore()
+    {
+        return player->getPoints();
     }
 
 private:
