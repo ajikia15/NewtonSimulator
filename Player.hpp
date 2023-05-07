@@ -31,6 +31,18 @@ public:
 	{
 		points--;
 	}
+	int getLives()
+	{
+		return lives;
+	}
+	void deductLives()
+	{
+		lives--;
+	}
+	void plusLives()
+	{
+		lives--;
+	}
 	void moveR()
 	{
 		updatePreviousX(x);
@@ -49,10 +61,6 @@ public:
 	int getPreviousX()
 	{
 		return oldx;
-	}
-	int getLives()
-	{
-		return lives;
 	}
 
 private:

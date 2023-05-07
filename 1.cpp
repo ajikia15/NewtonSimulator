@@ -19,14 +19,10 @@ bool isValidUsername(const std::string &name)
     }
     return true;
 }
-
-/*
- /\/\
- \  /
-  \/
-*/
 std::string getUsernameFromUser()
 {
+    std::cout << "Make sure this window is maximized!" << std::endl;
+    std::cout << "Give your username" << std::endl;
     std::string name;
     char c;
 
@@ -42,7 +38,7 @@ std::string getUsernameFromUser()
             name.clear();
             while ((c = std::cin.get()) != '\n')
             {
-            } // discard the rest of the input line
+            }
             break;
         }
     }
@@ -69,8 +65,6 @@ std::string getUsernameFromUser()
 }
 int main()
 {
-    std::cout << "Make sure this window is maximized!" << std::endl;
-    std::cout << "Give your username" << std::endl;
     std::string name = getUsernameFromUser();
     bool exit = false;
     initscr();
