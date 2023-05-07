@@ -2,6 +2,10 @@
 #include <ncurses.h>
 class Drawable
 {
+protected:
+	int y, x, oldx, oldy, points;
+	chtype icon;
+
 public:
 	Drawable()
 	{
@@ -27,8 +31,4 @@ public:
 	{
 		return icon;
 	}
-
-protected:
-	int y, x, oldx, oldy, points;
-	chtype icon;
 };

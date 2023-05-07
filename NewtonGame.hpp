@@ -12,6 +12,15 @@
 #define DEBUG 0
 class NewtonGame
 {
+private:
+    std::string pName;
+    Handheld handheld;
+    bool game_over;
+    bool pAdded;
+    bool projectileOnScreen;
+    Projectile *projectile;
+    Player *player;
+
 public:
     NewtonGame(const std::string &name)
     {
@@ -180,13 +189,4 @@ public:
     {
         return player->getPoints();
     }
-
-private:
-    std::string pName;
-    Handheld handheld;
-    bool game_over;
-    bool pAdded;
-    bool projectileOnScreen;
-    Projectile *projectile;
-    Player *player;
 };

@@ -4,6 +4,10 @@
 
 class Player : public Drawable
 {
+private:
+	int points;
+	int lives;
+
 public:
 	Player()
 	{
@@ -62,8 +66,4 @@ public:
 	{
 		return oldx;
 	}
-
-private:
-	int points;
-	int lives;
 };

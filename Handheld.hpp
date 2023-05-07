@@ -5,6 +5,9 @@
 #include <iostream>
 class Handheld
 {
+private:
+    WINDOW *mwin, *gwin;
+    int mh, mw, yGm, xGm, game_state, ch, points; // screen dimensions
 public:
     Handheld()
     {
@@ -33,7 +36,7 @@ public:
     void initColors()
     {
         start_color();
-        init_pair(1, COLOR_BLUE, COLOR_BLACK);  
+        init_pair(1, COLOR_BLUE, COLOR_BLACK);
         init_pair(2, COLOR_BLACK, COLOR_BLUE);
         init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
         init_pair(4, COLOR_RED, COLOR_BLACK);
@@ -272,8 +275,4 @@ public:
         mvwprintw(gwin, 3, 2, "Top Ranking:");
         showScoreBoard();
     }
-
-private:
-    WINDOW *mwin, *gwin;
-    int mh, mw, yGm, xGm, game_state, ch, points; // screen dimensions
 };
