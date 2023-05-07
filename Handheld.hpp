@@ -27,7 +27,7 @@ public:
     {
         noecho();
         curs_set(0);
-        keypad(gwin, true);
+        keypad(mwin, true);
         initColors();
         initUI();
         refresh();

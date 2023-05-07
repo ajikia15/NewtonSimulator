@@ -44,11 +44,13 @@ public:
             case 'x':
                 handheld.inMainMenu();
                 break;
+            case KEY_LEFT:
             case 'a':
                 if (player->getX() != 0)
                     player->moveL();
                 handheld.cMoveLeft();
                 break;
+            case KEY_RIGHT:
             case 'd':
                 if (player->getX() != handheld.getMaxX() - 1)
 
