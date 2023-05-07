@@ -9,6 +9,8 @@
 #include "Handheld.hpp"
 int main()
 {
+    std::cout << "give your name" << std::endl;
+
     bool exit = false;
     initscr();
     NewtonGame game;
@@ -17,7 +19,7 @@ int main()
     std::chrono::steady_clock::time_point start_time;
     while (!exit)
     {
-        std::cin >> name;
+
         chtype inp = getch();
         switch (inp)
         {

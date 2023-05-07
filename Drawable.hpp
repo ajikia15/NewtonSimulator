@@ -27,19 +27,7 @@ public:
 	{
 		return icon;
 	}
-    void updatePreviousY(int y)
-    {
-        oldy = y;
-    }
-    int getPreviousY()
-    {
-        return oldy;
-    }
-    void moveD()
-    {
-        updatePreviousY(y);
-        y++;
-    }
+    
 protected:
 	int y, x, oldx, oldy, points;
 	chtype icon;

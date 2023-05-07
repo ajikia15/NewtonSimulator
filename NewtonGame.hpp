@@ -7,6 +7,7 @@
 #include "Drawable.hpp"
 #include "Empty.hpp"
 #include "Player.hpp"
+#define INTERVAL 150
 class NewtonGame
 {
 public:
@@ -19,6 +20,7 @@ public:
     ~NewtonGame()
     {
         delete apple;
+        delete player;
     }
     void processInput()
     {
@@ -62,17 +64,14 @@ public:
             int y, x;
             x = handheld.getCoordinates();
             y = 0;
-            appleAdd(y, x);            
+            appleAdd(y, x);
         }
 
         if (getAppleState())
         {
 
-            if (startTime % 200 == 0)
+            if (startTime % (INTERVAL - player->getPoints()) == 0) // speed of the game
             {
-
-                // !!! if its time for the apple to fall
-
                 if (apple->getY() < handheld.getMaxY() - 1)
                 {
                     apple->moveD();
@@ -105,7 +104,7 @@ public:
     {
         pAdded = false;
     }
-    
+
     int getState()
     {
         return handheld.getState();
@@ -133,10 +132,6 @@ public:
         appleOnScreen = false;
         delete apple;
     }
-    void test()
-    {
-        handheld.test();
-    }
     void redraw()
     {
         handheld.redraw();
@@ -153,6 +148,7 @@ public:
     {
         handheld.exitFull();
     }
+
 private:
     Handheld handheld;
     bool game_over;
