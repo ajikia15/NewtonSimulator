@@ -61,6 +61,7 @@ public:
         if (!getAppleState())
         {
             handheld.displayPoints(player->getPoints());
+            handheld.displayHealth(player->getLives());
             int y, x;
             x = handheld.getCoordinates();
             y = 0;

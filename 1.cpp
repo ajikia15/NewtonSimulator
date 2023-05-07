@@ -20,6 +20,11 @@ bool isValidUsername(const std::string &name)
     return true;
 }
 
+/*
+ /\/\
+ \  /
+  \/
+*/
 std::string getUsernameFromUser()
 {
     std::string name;
@@ -64,9 +69,7 @@ std::string getUsernameFromUser()
 }
 int main()
 {
-
     std::cout << "Make sure this window is maximized!" << std::endl;
-    napms(1000);
     std::cout << "Give your username" << std::endl;
     std::string name = getUsernameFromUser();
     bool exit = false;
@@ -105,7 +108,7 @@ int main()
         }
         while (game.getState() == 2)
         {
-            // gameOver();
+            // game.gameOverScreen();
         }
         game.drawG();
     }

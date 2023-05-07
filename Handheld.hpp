@@ -36,6 +36,7 @@ public:
         init_pair(2, COLOR_BLACK, COLOR_BLUE);
         init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
         init_pair(4, COLOR_RED, COLOR_BLACK);
+        init_pair(5, COLOR_RED, COLOR_RED);
     }
     void colorToggle(std::string color, bool state)
     {
@@ -56,11 +57,9 @@ public:
         drawOutline();
         drawControlls();
         drawMainMenu();
-        // Screen Screen(mwin, mh, mw);
     };
     chtype getInput()
     {
-        // wtimeout(mwin, 150);
         notimeout(mwin, true);
         return wgetch(mwin);
         redraw();
@@ -199,6 +198,26 @@ public:
     {
         mvwprintw(mwin, 1, 2, "%d", t);
     }
+    void displayHealth(int lives)
+    {
+        int heartlen = 8;
+        wattron(mwin, COLOR_PAIR(5));
+        for (int j = 0; j < lives; j++)
+        {
+            mvwprintw(mwin, mh - 8, heartlen * j + 4, "  ");
+            mvwprintw(mwin, mh - 8, heartlen * j + 7, "  ");
+            mvwprintw(mwin, mh - 7, heartlen * j + 3, "       ");
+            mvwprintw(mwin, mh - 6, heartlen * j + 4, "     ");
+            mvwprintw(mwin, mh - 5, heartlen * j + 5, "   ");
+        }
+        wattroff(mwin, COLOR_PAIR(5));
+    }
+
+    /*
+     /\/\
+     \  /
+      \/
+    */
 private:
     WINDOW *mwin, *gwin;
     int mh, mw, yGm, xGm, game_state, ch; // screen dimensions

@@ -8,12 +8,14 @@ public:
 	Player()
 	{
 		points = this->x = this->y = this->oldx = this->oldy = 0;
+		lives = 5;
 		this->icon = '#';
 	}
 	Player(int y, int x)
 	{
 		this->oldx = this->oldy = 0;
-		this->x = x;		
+		lives = 5;
+		this->x = x;
 		this->y = y;
 		this->icon = '#';
 	}
@@ -39,15 +41,21 @@ public:
 		updatePreviousX(x);
 		x--;
 	}
-	
+
 	void updatePreviousX(int x)
 	{
 		oldx = x;
-	}		
-	int getPreviousX()	
+	}
+	int getPreviousX()
 	{
 		return oldx;
-	}	
+	}
+	int getLives()
+	{
+		return lives;
+	}
+
 private:
 	int points;
+	int lives;
 };
