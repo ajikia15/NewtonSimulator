@@ -9,11 +9,13 @@
 #include "Drawable.hpp"
 #include "Projectile.hpp"
 #include "Handheld.hpp"
-#include "Scores.hpp"
+// #include "Scores.hpp"
+
 #define UNDEFINED 0
 #define INGAME 1
 #define GAMEOVER 2
 #define GUIDE 3
+
 bool isValidUsername(const std::string &name)
 {
     for (char c : name)
@@ -74,7 +76,7 @@ int main()
     std::string name = getUsernameFromUser();
     bool exit = false;
     initscr();
-    NewtonGame game;
+    NewtonGame game(name);
     game.drawG();
     std::chrono::steady_clock::time_point start_time;
     while (!exit)

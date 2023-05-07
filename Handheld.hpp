@@ -36,7 +36,9 @@ public:
         init_pair(2, COLOR_BLACK, COLOR_BLUE);
         init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
         init_pair(4, COLOR_RED, COLOR_BLACK);
-        init_pair(5, COLOR_RED, COLOR_RED);
+        init_pair(5, COLOR_YELLOW, COLOR_BLUE);
+        init_pair(6, COLOR_RED, COLOR_BLUE);
+        init_pair(7, COLOR_WHITE, COLOR_BLUE);
     }
     void colorToggle(std::string color, bool state)
     {
@@ -199,8 +201,25 @@ public:
     }
     void displayPoints(int p)
     {
-        mvwprintw(mwin, 1, mw / 2 - 5, "             ");
-        mvwprintw(mwin, 1, mw / 2 - 5, "Score: %d", p);
+        mvwprintw(mwin, 1, mw - 11, "          ");
+        if (p < 0)
+        {
+            wattron(mwin, COLOR_PAIR(6));
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            wattroff(mwin, COLOR_PAIR(6));
+        }
+        else if (p >= 20)
+        {
+            wattron(mwin, COLOR_PAIR(5));
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            wattroff(mwin, COLOR_PAIR(5));
+        }
+        else
+        {
+            wattron(mwin, COLOR_PAIR(7));
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            wattroff(mwin, COLOR_PAIR(7));
+        }
     }
     void displayTime(int t)
     {
@@ -208,22 +227,14 @@ public:
     }
     void displayHealth(int lives)
     {
-        int heartlen = 8;
-        for (int j = mh - 8; j <= mh - 5; j++)
-            for (int z = 1; z <= mw - 2; z++)
-                mvwprintw(mwin, j, z, " ");
+        for (int j = 0; j < 5; j++)
+            mvwprintw(mwin, 1, 11 + j, " ");
         wattron(mwin, COLOR_PAIR(5));
+        mvwprintw(mwin, 1, 4, "Lives:");
         for (int j = 0; j < lives; j++)
-        {
-            mvwprintw(mwin, mh - 8, heartlen * j + 5, "  ");
-            mvwprintw(mwin, mh - 8, heartlen * j + 8, "  ");
-            mvwprintw(mwin, mh - 7, heartlen * j + 4, "       ");
-            mvwprintw(mwin, mh - 6, heartlen * j + 5, "     ");
-            mvwprintw(mwin, mh - 5, heartlen * j + 6, "   ");
-        }
+            mvwprintw(mwin, 1, 11 + j, "X");
         wattroff(mwin, COLOR_PAIR(5));
     }
-
     void gameOverScreen()
     {
         mvwprintw(gwin, 2, 2, "you lost");

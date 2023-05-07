@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <chrono>
+#include <iostream>
 #include "Handheld.hpp"
 #include "Projectile.hpp"
 #include "Drawable.hpp"
@@ -11,8 +12,9 @@
 class NewtonGame
 {
 public:
-    NewtonGame()
+    NewtonGame(const std::string &name)
     {
+        pName = pName;
         handheld = Handheld();
         handheld.start();
         game_over = projectileOnScreen = pAdded = false;
@@ -49,7 +51,7 @@ public:
     }
     void updateState(int startTime)
     {
-        handheld.displayTime(startTime);
+        // handheld.displayTime(startTime);
         int y, x;
         if (!getPlayerState())
         {
@@ -167,8 +169,13 @@ public:
     {
         handheld.clear();
     }
+    std::string getName()
+    {
+        return pName;
+    }
 
 private:
+    std::string pName;
     Handheld handheld;
     bool game_over;
     bool pAdded;
