@@ -67,7 +67,8 @@ public:
 
         if (!getProjectileState())
         {
-            handheld.displayPoints(player->getPoints());
+            handheld.setPoints(player->getPoints());
+            handheld.displayPoints();
             handheld.displayHealth(player->getLives());
             int y, x;
             x = handheld.getCoordinates();

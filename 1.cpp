@@ -16,17 +16,6 @@
 #define GAMEOVER 2
 #define GUIDE 3
 
-bool isValidUsername(const std::string &name)
-{
-    for (char c : name)
-    {
-        if (!std::isalnum(c))
-        { // check if the character is not alphanumeric
-            return false;
-        }
-    }
-    return true;
-}
 std::string getUsernameFromUser()
 {
     std::cout << "Make sure this window is maximized!" << std::endl;
@@ -71,6 +60,17 @@ std::string getUsernameFromUser()
 
     return name;
 }
+bool isValidUsername(const std::string &name)
+{
+    for (char c : name)
+    {
+        if (!std::isalnum(c))
+        { // check if the character is not alphanumeric
+            return false;
+        }
+    }
+    return true;
+}
 void startScore()
 {
 }
@@ -96,7 +96,7 @@ int main()
         default:
             break;
         }
-        if (game.getState() == 1)
+        if (game.getState() == INGAME)
         {
             start_time = std::chrono::steady_clock::now();
             do
@@ -108,19 +108,17 @@ int main()
                 game.updateState(elapsed_time);
                 game.redraw();
                 usleep(800);
-            } while (game.getState() == 1);
+            } while (game.getState() == INGAME);
         }
-        while (game.getState() == 2)
+        while (game.getState() == GAMEOVER)
         {
-            game.clearGameScreen();
-            game.gameOverScreen();
-            game.redraw();
             Score newScore;
             newScore.name = game.getName();
             newScore.score = game.getScore();
             updateScoreboard(newScore);
-            napms(400);
-            game.clearGameScreen();
+            game.gameOverScreen();
+            game.redraw();
+            napms(5000);
             exit = true;
             game.setState(0);
         }

@@ -14,6 +14,7 @@ public:
         mwin = newwin(mh, mw, (LINES - mh) / 2, (COLS - mw) / 2);
         gwin = newwin(mh / 2 - 1, mw - 6, (LINES - mh) / 2 + 2, (COLS - mw) / 2 + 3);
         getmaxyx(gwin, yGm, xGm);
+        points = 0;
     }
     int getState()
     {
@@ -32,7 +33,7 @@ public:
     void initColors()
     {
         start_color();
-        init_pair(1, COLOR_BLUE, COLOR_BLACK); // border colors
+        init_pair(1, COLOR_BLUE, COLOR_BLACK);  
         init_pair(2, COLOR_BLACK, COLOR_BLUE);
         init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
         init_pair(4, COLOR_RED, COLOR_BLACK);
@@ -199,25 +200,33 @@ public:
         mvwprintw(mwin, mh / 3 + mh / 3, 10 * 3, "    "); // next
         wattroff(mwin, COLOR_PAIR(4));
     }
-    void displayPoints(int p)
+    void setPoints(int p)
+    {
+        points = p;
+    }
+    int getPoints()
+    {
+        return points;
+    }
+    void displayPoints()
     {
         mvwprintw(mwin, 1, mw - 11, "          ");
-        if (p < 0)
+        if (getPoints() < 0)
         {
             wattron(mwin, COLOR_PAIR(6));
-            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", getPoints());
             wattroff(mwin, COLOR_PAIR(6));
         }
-        else if (p >= 20)
+        else if (getPoints() >= 20)
         {
             wattron(mwin, COLOR_PAIR(5));
-            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", getPoints());
             wattroff(mwin, COLOR_PAIR(5));
         }
         else
         {
             wattron(mwin, COLOR_PAIR(7));
-            mvwprintw(mwin, 1, mw - 12, "Score: %d", p);
+            mvwprintw(mwin, 1, mw - 12, "Score: %d", getPoints());
             wattroff(mwin, COLOR_PAIR(7));
         }
     }
@@ -235,12 +244,36 @@ public:
             mvwprintw(mwin, 1, 11 + j, "X");
         wattroff(mwin, COLOR_PAIR(5));
     }
+    void showScoreBoard()
+    {
+        std::ifstream file("scoreboard.txt");
+        if (file.is_open())
+        {
+            int i = 0;
+            std::string line;
+            while (std::getline(file, line))
+            {
+                i++;
+                mvwprintw(gwin, i + 4, 2, "%d) %s", i, line.c_str());
+            }
+            file.close();
+        }
+    }
     void gameOverScreen()
     {
-        mvwprintw(gwin, 2, 2, "you lost");
+        wclear(gwin);
+        wattron(gwin, A_BLINK);
+        mvwprintw(gwin, 1, 2, "GAME OVER!");
+        wattroff(gwin, A_BLINK);
+        mvwprintw(gwin, 1, xGm - 16, "Your score: %d", getPoints());
+        for (int i = 1; i < xGm - 1; i++)
+            mvwprintw(gwin, 2, i, "-");
+
+        mvwprintw(gwin, 3, 2, "Top Ranking:");
+        showScoreBoard();
     }
 
 private:
     WINDOW *mwin, *gwin;
-    int mh, mw, yGm, xGm, game_state, ch; // screen dimensions
+    int mh, mw, yGm, xGm, game_state, ch, points; // screen dimensions
 };
