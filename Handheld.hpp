@@ -272,7 +272,7 @@ public:
         for (int i = 1; i < xGm - 1; i++)
             mvwprintw(gwin, 2, i, "-");
 
-        mvwprintw(gwin, 3, 2, "Top Ranking:");
+        mvwprintw(gwin, 3, 2, "Top Player Ranking:");
         showScoreBoard();
     }
 };

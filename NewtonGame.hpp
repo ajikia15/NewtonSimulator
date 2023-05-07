@@ -83,7 +83,7 @@ public:
             handheld.displayHealth(player->getLives());
             int y, x;
             x = handheld.getCoordinates();
-            y = 0;
+            y = -1;
             projectileAdd(y, x);
         }
 
