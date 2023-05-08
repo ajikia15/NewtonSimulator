@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream> // for reading/writing from/to file
 #include <cstdlib> // for system function
-
 #include "src/NewtonGame.hpp"
 #include "src/Handheld.hpp"
 #include "src/Drawable.hpp"
@@ -23,9 +22,11 @@ std::string getUsernameFromUser()
 {
     system("clear");
     std::cout << "Make sure this window is maximized! If colors aren't appearing, try changing the size of the window" << std::endl;
-    std::cout << "Enter your username" << std::endl;
+    std::cout << "Give your username" << std::endl;
     std::string name;
+
     char c;
+
     while ((c = std::cin.get()) != '\n')
     {
         if (std::isalnum(c))
@@ -122,9 +123,9 @@ void runGameLoop(NewtonGame &game)
         {
             initScoreBoard(game.getName(), game.getScore() + 1);
             game.gameOverScreen();
+            napms(20000);
             if (chtype c = getch())
             {
-                napms(1000);
                 game.clearGameScreen();
                 exit = true;
                 break;
