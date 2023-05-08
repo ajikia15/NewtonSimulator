@@ -37,38 +37,38 @@ void drawControlls(WINDOW *w, int y, int x)
     mvwprintw(w, y - y / 4 + 1, x * 3, "NEXT");
     mvwprintw(w, y - y / 4 + 1, x * 3.8, "EXIT");
     // actual controlls
-    wattron(w, COLOR_PAIR(3));
+    wattron(w, COLOR_PAIR(12));
     mvwprintw(w, y - y / 4 - 1, x, "  ");     // up
     mvwprintw(w, y - y / 4, x + 2, "  ");     // right
     mvwprintw(w, y - y / 4 + 1, x, "  ");     // down
     mvwprintw(w, y - y / 4, x - 2, "  ");     // left
     mvwprintw(w, y - y / 4, x * 3, "    ");   // next
     mvwprintw(w, y - y / 4, x * 3.8, "    "); // exit
-    wattroff(w, COLOR_PAIR(3));
+    wattroff(w, COLOR_PAIR(12));
 }
 void nexArr(WINDOW *w, int y, int x)
 {
-    wattron(w, COLOR_PAIR(1));
+    wattron(w, COLOR_PAIR(10));
     mvwprintw(w, y - y / 4, x * 3, "NEXT");
-    wattroff(w, COLOR_PAIR(1));
+    wattroff(w, COLOR_PAIR(10));
 }
 void extArr(WINDOW *w, int y, int x)
 {
-    wattron(w, COLOR_PAIR(1));
+    wattron(w, COLOR_PAIR(10));
     mvwprintw(w, y - y / 4, x * 3.8, "EXIT");
-    wattroff(w, COLOR_PAIR(1));
+    wattroff(w, COLOR_PAIR(10));
 }
 void upArr(WINDOW *w, int y, int x)
 {
-    wattron(w, COLOR_PAIR(1));
+    wattron(w, COLOR_PAIR(10));
     mvwprintw(w, y - y / 4 - 1, x, "  "); // up
-    wattroff(w, COLOR_PAIR(1));
+    wattroff(w, COLOR_PAIR(10));
 }
 void downArr(WINDOW *w, int y, int x)
 {
-    wattron(w, COLOR_PAIR(1));
+    wattron(w, COLOR_PAIR(10));
     mvwprintw(w, y - y / 4 + 1, x, "  "); // up
-    wattroff(w, COLOR_PAIR(1));
+    wattroff(w, COLOR_PAIR(10));
 }
 void hOpt1(WINDOW *gwin, int *hlt, int y, int x)
 {
@@ -117,15 +117,15 @@ int main()
     int selected_option = 0;
 
     WINDOW *mwin = newwin(mh, mw, (LINES - mh) / 2, (COLS - mw) / 2);
-    wattron(mwin, COLOR_PAIR(1));
+    wattron(mwin, COLOR_PAIR(10));
     box(mwin, 0, 0);
-    wattroff(mwin, COLOR_PAIR(1));
+    wattroff(mwin, COLOR_PAIR(10));
     WINDOW *gwin = newwin(mh / 2 - 1, mw - 6, (LINES - mh) / 2 + 2, (COLS - mw) / 2 + 3);
-    wbkgd(mwin, COLOR_PAIR(2));
+    wbkgd(mwin, COLOR_PAIR(11));
     // WINDOW * gwin = subwin(mwin, 5, 5, 2, 2); // can't get subwins to work for some reason
-    wattron(gwin, COLOR_PAIR(1));
+    wattron(gwin, COLOR_PAIR(10));
     box(gwin, 0, 0);
-    wattroff(gwin, COLOR_PAIR(1));
+    wattroff(gwin, COLOR_PAIR(10));
     refresh();
     wrefresh(mwin);
 

@@ -43,9 +43,13 @@ public:
 	{
 		lives--;
 	}
-	void plusLives()
+	void healUp()
 	{
 		lives++;
+	}
+	void kill()
+	{
+		lives = 0;
 	}
 	void moveR()
 	{
@@ -57,7 +61,6 @@ public:
 		updatePreviousX(x);
 		x--;
 	}
-
 	void updatePreviousX(int x)
 	{
 		oldx = x;

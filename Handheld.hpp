@@ -6,6 +6,11 @@
 #include <algorithm>
 #include <vector>
 #include "Scores.hpp"
+
+#define APPLE 0
+#define ROCK 1
+#define HEALTH 2
+
 class Handheld
 {
 private:
@@ -39,23 +44,22 @@ public:
     void initColors()
     {
         start_color();
-        init_pair(1, COLOR_BLUE, COLOR_BLACK);
-        init_pair(2, COLOR_BLACK, COLOR_BLUE);
-        init_pair(3, COLOR_YELLOW, COLOR_YELLOW);
-        init_pair(4, COLOR_RED, COLOR_BLACK);
+        init_pair(APPLE + 1, COLOR_RED, COLOR_BLACK);
+        init_pair(ROCK + 1, COLOR_WHITE, COLOR_BLACK);
+        init_pair(HEALTH + 1, COLOR_GREEN, COLOR_BLACK);
         init_pair(5, COLOR_YELLOW, COLOR_BLUE);
         init_pair(6, COLOR_RED, COLOR_BLUE);
         init_pair(7, COLOR_WHITE, COLOR_BLUE);
+        init_pair(10, COLOR_BLUE, COLOR_BLACK);
+        init_pair(11, COLOR_BLACK, COLOR_BLUE);
+        init_pair(12, COLOR_YELLOW, COLOR_YELLOW);
     }
-    void colorToggle(std::string color, bool state)
+    void colorToggle(int type, bool state)
     {
-        if (color == "red")
-        {
-            if (state)
-                wattron(gwin, COLOR_PAIR(4));
-            else
-                wattroff(gwin, COLOR_PAIR(4));
-        }
+        if (state)
+            wattron(gwin, COLOR_PAIR(type + 1));
+        else
+            wattroff(gwin, COLOR_PAIR(type + 1));
     }
     void test()
     {
@@ -158,10 +162,10 @@ public:
     }
     void drawOutline()
     {
-        wattron(mwin, COLOR_PAIR(1));
+        wattron(mwin, COLOR_PAIR(10));
         box(mwin, 0, 0);
-        wattroff(mwin, COLOR_PAIR(1));
-        wbkgd(mwin, COLOR_PAIR(2));
+        wattroff(mwin, COLOR_PAIR(10));
+        wbkgd(mwin, COLOR_PAIR(11));
         wattron(mwin, A_STANDOUT);
         mvwprintw(mwin, mh - 3, mw / 2 - 9, " NEWTON SIMULATOR ");
         wattroff(mwin, A_STANDOUT);
@@ -176,14 +180,14 @@ public:
         mvwprintw(mwin, mh / 3 + mh / 3 + 1, 10 * 3, "NEXT");
         mvwprintw(mwin, mh / 3 + mh / 3 + 1, 10 * 3.8, "EXIT");
         // actual controlls
-        wattron(mwin, COLOR_PAIR(3));
+        wattron(mwin, COLOR_PAIR(12));
         mvwprintw(mwin, mh / 3 + mh / 3 - 1, 10, "  ");     // up
         mvwprintw(mwin, mh / 3 + mh / 3, 10 + 2, "  ");     // right
         mvwprintw(mwin, mh / 3 + mh / 3 + 1, 10, "  ");     // down
         mvwprintw(mwin, mh / 3 + mh / 3, 10 - 2, "  ");     // left
         mvwprintw(mwin, mh / 3 + mh / 3, 10 * 3, "    ");   // next
         mvwprintw(mwin, mh / 3 + mh / 3, 10 * 3.8, "    "); // exit
-        wattroff(mwin, COLOR_PAIR(3));
+        wattroff(mwin, COLOR_PAIR(12));
     };
     void cMoveLeft()
     {

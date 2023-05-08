@@ -54,21 +54,21 @@ Player::Player(WINDOW *win, int yc, int xc, char c, WINDOW *mwin)
 }
 void Player::drawControlls()
 {
-    wattron(main, COLOR_PAIR(3));
+    wattron(main, COLOR_PAIR(12));
     mvwprintw(main, ay - ay / 4 - 1, ax, "  "); // up
     mvwprintw(main, ay - ay / 4, ax + 2, "  "); // right
     mvwprintw(main, ay - ay / 4 + 1, ax, "  "); // down
     mvwprintw(main, ay - ay / 4, ax - 2, "  "); // left
     mvwprintw(main, ay - ay / 4, ax * 3, "    ");
     mvwprintw(main, ay - ay / 4, ax * 3.8, "    ");
-    wattroff(main, COLOR_PAIR(3));
+    wattroff(main, COLOR_PAIR(12));
     wrefresh(main);
 }
 void Player::mvleft()
 {
-    wattron(main, COLOR_PAIR(1));
+    wattron(main, COLOR_PAIR(10));
     mvwprintw(main, ay - ay / 4, ax - 2, "  ");
-    wattroff(main, COLOR_PAIR(1));
+    wattroff(main, COLOR_PAIR(10));
     wrefresh(main);
     x -= 1;
     if (x < 1)
@@ -77,9 +77,9 @@ void Player::mvleft()
 
 void Player::mvright()
 {
-    wattron(main, COLOR_PAIR(1));
+    wattron(main, COLOR_PAIR(10));
     mvwprintw(main, ay - ay / 4, ax + 2, "  "); // right
-    wattroff(main, COLOR_PAIR(1));
+    wattroff(main, COLOR_PAIR(10));
     wrefresh(main);
     x += 1;
     if (x > width - 1)

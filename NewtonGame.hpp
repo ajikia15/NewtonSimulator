@@ -10,6 +10,7 @@
 #include "Player.hpp"
 #define INTERVAL 150
 #define DEBUG 0
+
 class NewtonGame
 {
 private:
@@ -53,7 +54,6 @@ public:
             case KEY_RIGHT:
             case 'd':
                 if (player->getX() != handheld.getMaxX() - 1)
-
                     player->moveR();
                 handheld.cMoveRight();
                 break;
@@ -96,24 +96,35 @@ public:
                 {
                     projectile->moveD();
                     handheld.add(Empty(projectile->getPreviousY(), projectile->getX()));
-                    handheld.colorToggle("red", 1);
+                    handheld.colorToggle(projectile->getType(), 1);
                     handheld.add(*projectile);
-                    handheld.colorToggle("red", 0);
+                    handheld.colorToggle(projectile->getType(), 0);
                 }
                 else
                 {
-                    if (projectile->getX() != player->getX())
+                    int type = projectile->getType();
+                    if (projectile->getX() == player->getX())
                     {
-                        player->deductPoints();
-                        player->deductLives();
-                        if (player->getLives() == 0)
-                        {
-                            handheld.clearStatusBar();
-                            handheld.setState(2);
-                        }
+                        if (!type)
+                            player->plusPoints();
+                            else if (type == 2)
+                            player->healUp();
+                        else if (type)
+                            player->kill();
                     }
                     else
-                        player->plusPoints();
+                    {
+                        if (!type)
+                        {
+                            player->deductPoints();
+                            player->deductLives();
+                        }
+                    }
+                    if (player->getLives() == 0)
+                    {
+                        handheld.clearStatusBar();
+                        handheld.setState(2);
+                    }
                     projectileDel();
                 }
             }
