@@ -149,13 +149,41 @@ public:
     {
         return projectileOnScreen;
     }
+    int getRandomType()
+    {
+        int type = rand() % 10;
+        switch (type)
+        {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            type = 0;
+            break;
+        case 6:
+        case 7:
+            type = 1;
+            break;
+        case 8:
+        case 9:
+            type = 2;
+            break;
+        }
+        return type;
+    }
+
     void projectileAdd(int y, int x)
     {
-        projectile = new Projectile(y, x);
+        int type = getRandomType();
+        projectile = new Projectile(y, x, type);
         projectileOnScreen = true;
     }
+
     void projectileDel()
     {
+
         handheld.add(Empty(projectile->getY(), projectile->getX()));
         projectileOnScreen = false;
         delete projectile;

@@ -287,7 +287,7 @@ public:
         wattron(gwin, A_BLINK);
         mvwprintw(gwin, 1, 2, "GAME OVER!");
         wattroff(gwin, A_BLINK);
-        mvwprintw(gwin, 1, xGm - 16, "Your score: %d", getPoints() + 1);
+        mvwprintw(gwin, 1, xGm - 16, "Your score: %d", getPoints());
         for (int i = 1; i < xGm - 1; i++)
             mvwprintw(gwin, 2, i, "-");
 

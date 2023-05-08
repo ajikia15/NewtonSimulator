@@ -18,9 +18,10 @@
 
 std::string getUsernameFromUser()
 {
-    std::cout << "Make sure this window is maximized!" << std::endl;
+    std::cout << "Make sure this window is maximized! If colors aren't appearing, try changing the size of the window" << std::endl;
     std::cout << "Give your username" << std::endl;
     std::string name;
+
     char c;
 
     while ((c = std::cin.get()) != '\n')
@@ -57,7 +58,7 @@ std::string getUsernameFromUser()
                 break;
             }
     }
-
+    std::cout << "Good Luck" << name << std::endl;
     return name;
 }
 bool isValidUsername(const std::string &name)
@@ -78,14 +79,12 @@ void initScoreBoard(std::string n, int s)
     newScore.score = s;
     updateScoreboard(newScore);
 }
-int main()
+
+void runGameLoop(NewtonGame &game)
 {
-    std::string name = getUsernameFromUser();
-    bool exit = false;
-    initscr();
-    NewtonGame game(name);
-    game.drawG();
     std::chrono::steady_clock::time_point start_time;
+    bool exit = false;
+
     while (!exit)
     {
         chtype inp = getch();
@@ -102,6 +101,7 @@ int main()
         default:
             break;
         }
+
         if (INGAME)
         {
             start_time = std::chrono::steady_clock::now();
@@ -115,13 +115,20 @@ int main()
                 usleep(800);
             } while (INGAME);
         }
+
         while (GAMEOVER)
         {
-            initScoreBoard(game.getName(), game.getScore());
+            initScoreBoard(game.getName(), game.getScore() + 1);
             game.gameOverScreen();
-            exit = true;
-            napms(5000);
+            napms(20000);
+            if (chtype c = getch())
+            {
+                game.clearGameScreen();
+                exit = true;
+                break;
+            }
         }
+
         while (GUIDE)
         {
             game.gameGuideScreen();
@@ -131,9 +138,21 @@ int main()
                 break;
             }
         }
+
         if (game.getState() != 0)
+        {
             game.drawG();
+        }
     }
+}
+
+int main()
+{
+    std::string name = getUsernameFromUser();
+    initscr();
+    NewtonGame game(name);
+    game.drawG();
+    runGameLoop(game);
     game.exit();
     getch();
 
