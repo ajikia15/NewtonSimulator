@@ -1,8 +1,9 @@
 #include <ncurses.h>
 #include <chrono>
-#include <unistd.h>
+#include <random>
+#include <algorithm>
+#include <unistd.h> // usleep
 #include <iostream>
-#include <cctype>
 #include <fstream>
 #include "NewtonGame.hpp"
 #include "Handheld.hpp"
@@ -35,8 +36,7 @@ std::string getUsernameFromUser()
             std::cout << "Invalid username. Use only letters and numbers." << std::endl;
             name.clear();
             while ((c = std::cin.get()) != '\n')
-            {
-            }
+                ;
             break;
         }
     }
@@ -58,7 +58,8 @@ std::string getUsernameFromUser()
                 break;
             }
     }
-    std::cout << "Good Luck" << name << std::endl;
+    std::cout << "Good Luck " << name << std::endl;
+    napms(2000);
     return name;
 }
 bool isValidUsername(const std::string &name)

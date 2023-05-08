@@ -1,5 +1,4 @@
 #pragma once
-#include <ncurses.h>
 #include "Drawable.hpp"
 
 class Player : public Drawable
@@ -45,7 +44,8 @@ public:
 	}
 	void healUp()
 	{
-		lives++;
+
+		lives += (lives < 5) ? 1 : 0;
 	}
 	void kill()
 	{

@@ -1,10 +1,5 @@
 #pragma once
-#include <ncurses.h>
-#include <fstream>
 #include "Drawable.hpp"
-#include <iostream>
-#include <algorithm>
-#include <vector>
 #include "Scores.hpp"
 
 #define APPLE 0
@@ -93,7 +88,11 @@ public:
     }
     int getCoordinates()
     {
-        return (rand() % (xGm + 1) - 1);
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0, xGm + 1);
+        int x = dis(gen);
+        return x;
     }
     void gameEnter()
     {
@@ -117,36 +116,32 @@ public:
     }
     void drawApple()
     {
-        wattron(gwin, COLOR_PAIR(4));
-        mvwprintw(gwin, yGm - 7, 0, "         /)");
+        wattron(gwin, COLOR_PAIR(APPLE + 1));
+        mvwprintw(gwin, yGm - 7, 0, "         /");
         mvwprintw(gwin, yGm - 6, 0, "    __  /__");
         mvwprintw(gwin, yGm - 5, 0, " .'`  `-'  ``.");
         mvwprintw(gwin, yGm - 4, 0, ":          .-'");
         mvwprintw(gwin, yGm - 3, 0, ":         :");
         mvwprintw(gwin, yGm - 2, 0, " :         `-;");
         mvwprintw(gwin, yGm - 1, 0, "  `.__.-.__.'");
-        wattroff(gwin, COLOR_PAIR(4));
+        wattroff(gwin, COLOR_PAIR(APPLE + 1));
     }
     void drawG()
     {
         wattron(gwin, A_STANDOUT);
-        mvwprintw(gwin, 2, xGm / 2 - 7, "Apple Catcher");
+        mvwprintw(gwin, 3, xGm / 2 - 8, "Newton Simulator");
         wattroff(gwin, A_STANDOUT);
-        mvwprintw(gwin, 4, xGm / 2 - 12, "Use arrow keys to move");
-        mvwprintw(gwin, 6, xGm / 2 - 8, "Collect projectiles");
-        mvwprintw(gwin, 7, xGm / 2 - 7, "Avoid rocks!");
+        mvwprintw(gwin, 6, xGm / 2 - 11, "Press 'q' for a Guide");
         wattron(gwin, A_BLINK);
-        mvwprintw(gwin, yGm - 3, xGm / 2 - 3, "Press Enter to Start");
+        mvwprintw(gwin, yGm / 2 + 1, xGm / 2 - 10, "Press Enter to Start");
         wattroff(gwin, A_BLINK);
         drawApple();
-
-        wrefresh(mwin);
-        wrefresh(gwin);
+        redraw();
     };
     void redraw()
     {
-        wrefresh(gwin);
         wrefresh(mwin);
+        wrefresh(gwin);
     };
     void drawMainMenu()
     {

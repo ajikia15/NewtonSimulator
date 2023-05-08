@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-
 struct Score
 {
     std::string name;

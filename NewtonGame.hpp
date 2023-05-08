@@ -1,8 +1,5 @@
 #pragma once
-#include <ncurses.h>
-#include <stdlib.h>
-#include <chrono>
-#include <iostream>
+#include <random>
 #include "Handheld.hpp"
 #include "Projectile.hpp"
 #include "Drawable.hpp"
@@ -89,8 +86,11 @@ public:
 
         if (getProjectileState())
         {
+            // speed of the game
 
-            if (startTime % (INTERVAL - player->getPoints()) == 0) // speed of the game
+            // if (startTime % (INTERVAL - player->getPoints() * (player->getPoints() > 5 && player->getPoints() < 10 ? 2 : 1)) == 0)
+            if (startTime % (INTERVAL - (player->getPoints() * 2)) == 0)
+
             {
                 if (projectile->getY() < handheld.getMaxY() - 1)
                 {
@@ -107,7 +107,7 @@ public:
                     {
                         if (!type)
                             player->plusPoints();
-                            else if (type == 2)
+                        else if (type == 2)
                             player->healUp();
                         else if (type)
                             player->kill();
@@ -162,25 +162,22 @@ public:
     }
     int getRandomType()
     {
-        int type = rand() % 10;
-        switch (type)
+        // int type = rand() % 10;
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> dis(0, 9);
+        int type = dis(gen);
+        if (type < 7)
         {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
             type = 0;
-            break;
-        case 6:
-        case 7:
+        }
+        else if (type < 8)
+        {
             type = 1;
-            break;
-        case 8:
-        case 9:
+        }
+        else
+        {
             type = 2;
-            break;
         }
         return type;
     }
