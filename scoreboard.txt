@@ -1,6 +1,6 @@
+gvanca 300
 aleks 50
 seqs 40
-gvanca 300
 qalebsa 1
+s -5
 seqsebsa -5
-

@@ -78,7 +78,6 @@ void initScoreBoard(std::string n, int s)
     newScore.score = s;
     updateScoreboard(newScore);
 }
-
 int main()
 {
     std::string name = getUsernameFromUser();
@@ -125,7 +124,6 @@ int main()
         }
         while (GUIDE)
         {
-
             game.gameGuideScreen();
             if (chtype c = getch())
             {

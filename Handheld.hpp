@@ -3,7 +3,9 @@
 #include <fstream>
 #include "Drawable.hpp"
 #include <iostream>
-
+#include <algorithm>
+#include <vector>
+#include "Scores.hpp"
 class Handheld
 {
 private:
@@ -255,12 +257,22 @@ public:
         if (file.is_open())
         {
             int i = 0;
-            std::string line;
-            while (std::getline(file, line))
+            std::vector<Score> scores;
+
+            Score score;
+            while (file >> score.name >> score.score)
+            {
+                scores.push_back(score);
+            }
+
+            sort(scores.begin(), scores.end(), compareScores);
+
+            for (const auto &score : scores)
             {
                 i++;
-                mvwprintw(gwin, i + 4, 2, "%d) %s", i, line.c_str());
+                mvwprintw(gwin, i + 4, 2, "%d) %s %d", i, score.name.c_str(), score.score);
             }
+
             file.close();
         }
     }
