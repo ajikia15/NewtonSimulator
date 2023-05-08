@@ -1,12 +1,4 @@
 gvanca 300
-a 96
-d 96
-harro 96
-havesex 96
-giorgs 95
-aleks 50
-seqs 40
-finally 1
-qalebsa 1
-s -5
-seqsebsa -5
+georgewestside 6
+traki 6
+Nini 5
