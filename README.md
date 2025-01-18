@@ -9,7 +9,7 @@ NewtonSimulator is a simple game built with the nCurses library in C++. Final pr
 - The game ends when the player loses all lives or is hit by a rock.
 - Scoreboard to compete with other players who playtested the game.
 
-[Demo.mp4]
+https://github.com/user-attachments/assets/ec5136bb-a08c-4660-b897-a9ee90586282
 
 ## Controls
 
